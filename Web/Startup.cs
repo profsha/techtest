@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Data;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace TechTest
 {
@@ -30,6 +33,17 @@ namespace TechTest
         {
             // Add framework services.
             services.AddMvc();
+
+            services.Configure<IISOptions>(iis =>
+            {
+                iis.AuthenticationDisplayName = "Windows";
+                iis.AutomaticAuthentication = true;
+            });
+
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
+            var connection = @"Server=localhost;Database=TestTech;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +64,8 @@ namespace TechTest
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseAuthentication();
 
             app.UseStaticFiles();
 
