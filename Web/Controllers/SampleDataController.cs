@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace TechTest.Controllers
 {
@@ -22,7 +23,8 @@ namespace TechTest.Controllers
             {
                 DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Summary = Summaries[rng.Next(Summaries.Length)],
+                Test = StringLibrary.StartsWithUpper(Summaries[rng.Next(Summaries.Length)])
             });
         }
 
@@ -31,6 +33,7 @@ namespace TechTest.Controllers
             public string DateFormatted { get; set; }
             public int TemperatureC { get; set; }
             public string Summary { get; set; }
+            public bool Test{get;set;}
 
             public int TemperatureF
             {

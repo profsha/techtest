@@ -12,6 +12,7 @@
             :sortable='true'
             :filterable='true'
             :editable="'inline'"
+            :pageable= "{refresh: true,pageSizes: true,buttonCount: 5}"
             @save="onSave"
             @remove="onRemove">
                 <kendo-grid-column field="dateFormatted" :width="140"></kendo-grid-column>

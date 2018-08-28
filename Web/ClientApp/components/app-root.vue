@@ -5,7 +5,9 @@
                 <nav-menu params="route: route"></nav-menu>
             </div>
             <div class="col-sm-9">
-                <router-view></router-view>
+                <transition name="slide">
+                    <router-view></router-view>
+                </transition>
             </div>
         </div>
 
