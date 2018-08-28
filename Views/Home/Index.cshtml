@@ -1,0 +1,8 @@
+@{ ViewData["Title"] = "Home Page"; }
+
+<div id="app"></div>
+
+@section scripts {
+    <script> window.VueRouterUrl = '@Html.Raw(ViewData["URL"])'</script>
+    <script src="~/dist/main.js" asp-append-version="true"></script>
+}
